@@ -9,5 +9,147 @@
 	<body>
 		<h2>The Snake Game</h2>
 		<canvas id="canvas" width="500" height="500" style="border:3px solid #d3d3d3;"/>
+		
+		<script>
+
+		    var score=0;
+		    
+			var move="right";
+			var snakeBody;
+			var food={xx:0,yy:0};
+    		
+			var paintJob = document.getElementById("canvas");
+        	var paintBucket = paintJob.getContext("2d");
+        	var cellDimension=10;
+        
+			//This function creates the initial snake of length 8.
+			function create()
+			{
+				var length=8;
+				snakeBody=[];
+				for(var i=length-1;i>=0;i--)
+				{
+				    snakeBody.push({x:i,y:0});
+				}
+			}
+	
+			//This function generates a food dot at a random position in play area.
+			function cookfood()
+			{   
+				food.xx= Math.round(Math.random()*(500-10)/10);
+				food.yy=Math.round(Math.random()*(500-10)/10);
+				// "500-10" is taken such that the food doesn't appear coincidentially on the border radius of canvas.
+			}
+		
+		
+			//On pressing a key during game, the event "onkeydown" occurs, and during the occurance, this function is called, it will 				change the direction of snake.
+        	document.onkeydown=function(e)
+			{
+				var key = e.which;
+				// 37 is ascii value of left arrow key.
+				// 38 is ascii value of up arrow key.
+				// 39 is ascii value of right arrow key.
+				// 40 is the ascii value of down arrow key.
+	
+	    		if(key == "37" && move != "right") move = "left";
+				else
+				if(key == "38" && move != "down") move = "up";
+				else
+				if(key == "39" && move != "left") move = "right";
+				else
+				if(key == "40" && move != "up") move = "down";
+			
+				//this and conditions are set such that the snake does not reverse its direction.
+				//the value of move is set which will be used in draw function.
+			}
+	
+			
+			function gamePlay()
+			{
+				paintBucket.fillStyle = "white";
+        		paintBucket.fillRect(0, 0, 500, 500);
+	    	    paintBucket.strokeStyle = "black";
+	    	    paintBucket.strokeRect(0, 0, 500, 500);
+		
+		        var snakehead_x = snakeBody[0].x;
+				var snakehead_y = snakeBody[0].y;
+		
+		        if(move == "right") snakehead_x++;
+				else if(move == "left") snakehead_x--;
+				else if(move == "up") snakehead_y--;
+				else if(move == "down") snakehead_y++;
+		
+		
+				if(snakehead_x>49)
+				snakehead_x=0;
+				if(snakehead_x<0)
+				snakehead_x=50;
+				if(snakehead_y>49)
+				snakehead_y=0;
+				if(snakehead_y<0)
+				snakehead_y=50;
+				
+				if(isdead(snakehead_x,snakehead_y,snakeBody)==true)
+				initialize();
+				
+				if(snakehead_x == food.xx && snakehead_y == food.yy)
+				{
+					var tail={x:snakehead_x,y:snakehead_y};
+					cookfood();
+					score++;
+				}
+				else
+				{
+					var tail=snakeBody.pop();
+					tail.x=snakehead_x;
+					tail.y=snakehead_y;
+				}
+				
+				snakeBody.unshift(tail);
+				
+				paintCell(food.xx,food.yy);
+				
+				var text = "Score: " + score;
+			    paintBucket.fillText(text,20,20);
+				
+				for(var i = 0; i < snakeBody.length; i++)
+				{
+					var d = snakeBody[i];
+			        paintCell(d.x, d.y);
+				}
+			}
+		
+	    	function paintCell(x,y)
+	    	{
+	    		
+	    		paintBucket.fillStyle = "black";
+	    		paintBucket.fillRect(x*cellDimension, y*cellDimension, cellDimension, cellDimension);
+                paintBucket.strokeStyle = "white";
+	    		paintBucket.strokeRect(x*cellDimension, y*cellDimension, cellDimension, cellDimension);
+	        }
+		
+    		//Check whether the snake is dead or not...
+    		function isdead(zx,zy,arr)
+			{
+				for(var i = 0; i < arr.length; i++)
+				{
+					if(arr[i].x == zx && arr[i].y == zy)
+					return true;
+				}
+					return false;
+			}
+		
+			//Called at start or gameover.
+			function initialize()
+			{
+				score=0;
+			    move = "right";
+				create();
+				cookfood();
+				if(typeof game_loop != "undefined") clearInterval(game_loop);
+				game_loop = setInterval(gamePlay, 80);
+			}
+			initialize();
+		</script>
 	</body>
 </html>
