@@ -17,7 +17,8 @@
 			var move="right";
 			var snakeBody;
 			var food={xx:0,yy:0};
-        
+            var isThereSpecialFood= "no";
+            
 			//This function creates the initial snake of length 8.
 			function create()
 			{
@@ -89,7 +90,19 @@
 				{
 					var tail={x:snakehead_x,y:snakehead_y};
 					cookfood();
-					score++;
+					
+					if(isThereSpecialFood == "yes")
+					{
+						score+=6;
+						isThereSpecialFood = "no";
+					}
+					else
+					{
+						score++;
+						if(score%5 == 0)
+						isThereSpecialFood="yes";
+					}
+					
 				}
 				else
 				{
@@ -100,7 +113,11 @@
 				
 				snakeBody.unshift(tail);
 				
-				paintCell(food.xx,food.yy, "#F2DB06");
+				if(isThereSpecialFood == "no")
+				paintCell(food.xx, food.yy, "#F2DB06");
+				else
+				paintSpecialFood(food.xx, food.yy, "#44FC35");
+				
 				paintScore(score);
 				paintWholeSnake(snakeBody);
 				

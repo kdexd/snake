@@ -34,6 +34,15 @@
 		    paintBucket.fillText(text,20,20);
 		}
 		
+		function paintSpecialFood(x,y,color)
+		{
+			
+			paintBucket.fillStyle = color;
+			paintBucket.fillRect(x*cellDimension - 2, y*cellDimension -2 , cellDimension + 4, cellDimension + 4);
+            paintBucket.strokeStyle = "white";
+			paintBucket.strokeRect(x*cellDimension - 2, y*cellDimension - 2, cellDimension + 4, cellDimension + 4);
+		}
+		
 		//This function paints the snake alternatively light and dark blue.
 		function paintWholeSnake(array)
 		{
