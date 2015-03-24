@@ -17,10 +17,6 @@
 			var move="right";
 			var snakeBody;
 			var food={xx:0,yy:0};
-    		
-			var paintJob = document.getElementById("canvas");
-        	var paintBucket = paintJob.getContext("2d");
-        	var cellDimension=10;
         
 			//This function creates the initial snake of length 8.
 			function create()
@@ -60,16 +56,13 @@
 				if(key == "40" && move != "up") move = "down";
 			
 				//this and conditions are set such that the snake does not reverse its direction.
-				//the value of move is set which will be used in draw function.
+				//the value of move is set which will be used in gamePlay function.
 			}
 	
 			
 			function gamePlay()
 			{
-				paintBucket.fillStyle = "white";
-        		paintBucket.fillRect(0, 0, 500, 500);
-	    	    paintBucket.strokeStyle = "black";
-	    	    paintBucket.strokeRect(0, 0, 500, 500);
+				paintCanvas();
 		
 		        var snakehead_x = snakeBody[0].x;
 				var snakehead_y = snakeBody[0].y;
@@ -107,26 +100,11 @@
 				
 				snakeBody.unshift(tail);
 				
-				paintCell(food.xx,food.yy);
+				paintCell(food.xx,food.yy, "#F2DB06");
+				paintScore(score);
+				paintWholeSnake(snakeBody);
 				
-				var text = "Score: " + score;
-			    paintBucket.fillText(text,20,20);
-				
-				for(var i = 0; i < snakeBody.length; i++)
-				{
-					var d = snakeBody[i];
-			        paintCell(d.x, d.y);
-				}
 			}
-		
-	    	function paintCell(x,y)
-	    	{
-	    		
-	    		paintBucket.fillStyle = "black";
-	    		paintBucket.fillRect(x*cellDimension, y*cellDimension, cellDimension, cellDimension);
-                paintBucket.strokeStyle = "white";
-	    		paintBucket.strokeRect(x*cellDimension, y*cellDimension, cellDimension, cellDimension);
-	        }
 		
     		//Check whether the snake is dead or not...
     		function isdead(zx,zy,arr)
@@ -151,5 +129,7 @@
 			}
 			initialize();
 		</script>
+		
+		<script type="text/javascript" src="painters.js" ></script>
 	</body>
 </html>
