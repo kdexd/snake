@@ -116,7 +116,7 @@
 				if(isThereSpecialFood == "no")
 				paintCell(food.xx, food.yy, "#F2DB06");
 				else
-				paintSpecialFood(food.xx, food.yy, "#44FC35");
+				makeSpecialFoodBlink(food.xx, food.yy);
 				
 				paintScore(score);
 				paintWholeSnake(snakeBody);
@@ -141,6 +141,7 @@
 			    move = "right";
 				create();
 				cookfood();
+				isThereSpecialFood = "no";
 				if(typeof game_loop != "undefined") clearInterval(game_loop);
 				game_loop = setInterval(gamePlay, 80);
 			}
