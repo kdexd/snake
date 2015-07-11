@@ -5,7 +5,7 @@
         
         //blinkCounter is employed for blinking of special food.
         var blinkCounter = 1;
-        
+
 		// Inbuilt functions used: 
 		// 1. fillStyle & strokeStyle: Sets which color is to be filled inside and on boundary...
 		// 2. fillRect & strokeRect: Accepts the pixel coordinates, height and width, and fill them with color and stroke.
@@ -15,8 +15,21 @@
 		{
 		    paintBucket.fillStyle = "white";
     		paintBucket.fillRect(0, 0, 500, 500);
-		    paintBucket.strokeStyle = "black";
+		    paintBucket.strokeStyle = "blue";
 		    paintBucket.strokeRect(0, 0, 500, 500);
+		}
+
+		//This function paints the game over canvas.
+		function gameOver_canvas()
+		{
+			paintBucket.clearRect(0, 0, 500, 500);
+			paintBucket.fillStyle = "red";
+			paintBucket.fillRect(0, 0, 500, 500);
+			paintBucket.strokeStyle = "black";
+		    paintBucket.strokeRect(0, 0, 500, 500);
+		    paintBucket.fillStyle = "black";
+		    paintBucket.font = "30px Arial";
+		    paintBucket.fillText("Game Over!", 170,250);
 		}
 		
 		//This function paintes the cell with the color passed as an argument.
@@ -34,6 +47,7 @@
 		{
 		    var text = "Score: " + score;
 		    paintBucket.fillStyle = "#000000";
+		    paintBucket.font = "10px Arial";
 		    paintBucket.fillText(text,20,20);
 		}
 		
