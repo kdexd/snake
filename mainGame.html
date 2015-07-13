@@ -18,6 +18,7 @@
 			var snakeBody;
 			var food={xx:0,yy:0};
             var isThereSpecialFood= "no";
+            var isGameOver=0;
             
 			//This function creates the initial snake of length 8.
 			function create()
@@ -47,7 +48,14 @@
 				// 38 is ascii value of up arrow key.
 				// 39 is ascii value of right arrow key.
 				// 40 is the ascii value of down arrow key.
-	
+				
+				//Check whether game is over or not
+				if(isGameOver == 1)
+				{
+					isGameOver = 0;
+					initialize();
+				}
+
 	    		if(key == "37" && move != "right") move = "left";
 				else
 				if(key == "38" && move != "down") move = "up";
@@ -140,9 +148,10 @@
 			//Displays Game Over Screen
 			function gameOver()
 			{
-				gameOver_canvas();
+				gameOver_canvas(score);
 				clearInterval(game_loop);
-				setTimeout(initialize, 3000);
+				isGameOver=1;
+				//setTimeout(initialize, 3000);
 			}
 
 			//Called at start or gameover.

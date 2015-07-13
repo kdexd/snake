@@ -20,7 +20,7 @@
 		}
 
 		//This function paints the game over canvas.
-		function gameOver_canvas()
+		function gameOver_canvas(score)
 		{
 			paintBucket.clearRect(0, 0, 500, 500);
 			paintBucket.fillStyle = "red";
@@ -29,7 +29,13 @@
 		    paintBucket.strokeRect(0, 0, 500, 500);
 		    paintBucket.fillStyle = "black";
 		    paintBucket.font = "30px Arial";
-		    paintBucket.fillText("Game Over!", 170,250);
+		    paintBucket.fillText("Game Over!", 175,220);
+		    var x;
+		    if(score >= 10) x = 5;
+		    else x = 10;
+		    paintBucket.fillText("Score: " + score, 185 + x, 260);
+		    paintBucket.font = "20px Times New Roman";
+		    paintBucket.fillText("Press any key to continue..", 10, 490);
 		}
 		
 		//This function paintes the cell with the color passed as an argument.
