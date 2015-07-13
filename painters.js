@@ -20,22 +20,29 @@
 		}
 
 		//This function paints the game over canvas.
-		function gameOver_canvas(score)
+		function gameOver_canvas(score, highscore)
 		{
+			var color = "#22EB4A";
+		    var x;
+		    if(score >= 10) x = 5;
+		    else x = 10;
 			paintBucket.clearRect(0, 0, 500, 500);
-			paintBucket.fillStyle = "red";
+			paintBucket.fillStyle = "#E11F02";
 			paintBucket.fillRect(0, 0, 500, 500);
 			paintBucket.strokeStyle = "black";
 		    paintBucket.strokeRect(0, 0, 500, 500);
 		    paintBucket.fillStyle = "black";
 		    paintBucket.font = "30px Arial";
 		    paintBucket.fillText("Game Over!", 175,220);
-		    var x;
-		    if(score >= 10) x = 5;
-		    else x = 10;
 		    paintBucket.fillText("Score: " + score, 185 + x, 260);
 		    paintBucket.font = "20px Times New Roman";
 		    paintBucket.fillText("Press any key to continue..", 10, 490);
+		    if(score > highscore)
+		    {
+		    	paintBucket.fillStyle = color;
+		    	paintBucket.font = "25px Arial";
+		    	paintBucket.fillText("New High Score!", 165, 300);
+		    }
 		}
 		
 		//This function paintes the cell with the color passed as an argument.
@@ -49,12 +56,13 @@
 		}
 		
         //This function paints the score on the canvas.
-		function paintScore(score)
+		function paintScore(score, highscore)
 		{
 		    var text = "Score: " + score;
 		    paintBucket.fillStyle = "#000000";
 		    paintBucket.font = "10px Arial";
 		    paintBucket.fillText(text,20,20);
+		    paintBucket.fillText("High Score: " + highscore, 20, 33);
 		}
 		
 		//This function paints the snake alternatively light and dark blue.

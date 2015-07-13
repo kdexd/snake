@@ -13,6 +13,7 @@
 		<script>
 
 		    var score=0;
+		    var highscore=0;
 		    var game_loop;
 			var move="right";
 			var snakeBody;
@@ -129,7 +130,7 @@
 				else
 				makeSpecialFoodBlink(food.xx, food.yy);
 				
-				paintScore(score);
+				paintScore(score, highscore);
 				paintWholeSnake(snakeBody);
 				
 			}
@@ -148,7 +149,8 @@
 			//Displays Game Over Screen
 			function gameOver()
 			{
-				gameOver_canvas(score);
+				gameOver_canvas(score, highscore);
+				if(highscore < score) highscore = score;
 				clearInterval(game_loop);
 				isGameOver=1;
 				//setTimeout(initialize, 3000);
