@@ -8,6 +8,15 @@
 
 	<body>
 		<h2>The Snake Game</h2>
+		<audio id="point1" src="point_sound.mp3">
+  			Your browser does not support the audio tag.
+		</audio>
+		<audio id="point2" src="point_sound2.wav">
+  			Your browser does not support the audio tag.
+		</audio>
+		<audio id="point3" src="point_sound3.wav">
+  			Your browser does not support the audio tag.
+		</audio>
 		<canvas id="canvas" width="500" height="500" style="border:3px solid #d3d3d3;"/>
 		
 		<script>
@@ -20,6 +29,9 @@
 			var food={xx:0,yy:0};
             var isThereSpecialFood= "no";
             var isGameOver=0;
+            var sound1 = document.getElementById("point1");
+            var sound2 = document.getElementById("point2");
+            var sound3 = document.getElementById("point3");
             
 			//This function creates the initial snake of length 8.
 			function create()
@@ -102,14 +114,15 @@
 				{
 					var tail={x:snakehead_x,y:snakehead_y};
 					cookfood();
-					
 					if(isThereSpecialFood == "yes")
 					{
+						sound3.play();
 						score+=6;
 						isThereSpecialFood = "no";
 					}
 					else
 					{
+						sound2.play();
 						score++;
 						if(score%5 == 0)
 						isThereSpecialFood="yes";
@@ -149,6 +162,7 @@
 			//Displays Game Over Screen
 			function gameOver()
 			{
+				sound1.play();
 				gameOver_canvas(score, highscore);
 				if(highscore < score) highscore = score;
 				clearInterval(game_loop);
@@ -159,6 +173,9 @@
 			//Called at start or gameover.
 			function initialize()
 			{
+				sound1.loop = false;
+				sound2.loop = false;
+				sound3.loop = false;
 				score=0;
 			    move = "right";
 				create();
