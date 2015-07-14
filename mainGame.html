@@ -32,6 +32,7 @@
             var sound1 = document.getElementById("point1");
             var sound2 = document.getElementById("point2");
             var sound3 = document.getElementById("point3");
+            var gameSpeed = 80;
             
 			//This function creates the initial snake of length 8.
 			function create()
@@ -119,6 +120,9 @@
 						sound3.play();
 						score+=6;
 						isThereSpecialFood = "no";
+						clearInterval(game_loop);
+						gameSpeed -= 5;
+						game_loop = setInterval(gamePlay, gameSpeed);
 					}
 					else
 					{
@@ -176,13 +180,13 @@
 				sound1.loop = false;
 				sound2.loop = false;
 				sound3.loop = false;
+				gameSpeed = 80;
 				score=0;
 			    move = "right";
 				create();
 				cookfood();
 				isThereSpecialFood = "no";
-				//if(typeof game_loop != "undefined") clearInterval(game_loop);
-				game_loop = setInterval(gamePlay, 80);
+				game_loop = setInterval(gamePlay, gameSpeed);
 			}
 			initialize();
 		</script>
