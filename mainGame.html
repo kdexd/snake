@@ -8,6 +8,7 @@
 
 	<body>
 		<h2>The Snake Game</h2>
+		<h3>Use arrow keys to control the snake. Press 'Space' to pause the game.</h3>
 		<audio id="point1" src="point_sound.mp3">
   			Your browser does not support the audio tag.
 		</audio>
@@ -32,7 +33,8 @@
             var sound1 = document.getElementById("point1");
             var sound2 = document.getElementById("point2");
             var sound3 = document.getElementById("point3");
-            var gameSpeed = 80;
+            var gameSpeed = 40;
+            var isPaused = false;
             
 			//This function creates the initial snake of length 8.
 			function create()
@@ -57,7 +59,7 @@
 			//On pressing a key during game, the event "onkeydown" occurs, and during the occurance, this function is called, it will 				change the direction of snake.
         	document.onkeydown=function(e)
 			{
-				var key = e.which;
+				var key = e.which || e.keyCode;
 				// 37 is ascii value of left arrow key.
 				// 38 is ascii value of up arrow key.
 				// 39 is ascii value of right arrow key.
@@ -70,13 +72,28 @@
 					initialize();
 				}
 
-	    		if(key == "37" && move != "right") move = "left";
+				//Add pause functionality
+				if(key == 32)
+				{
+					if(isPaused == true)
+					{
+						game_loop = setInterval(gamePlay, gameSpeed);
+						isPaused = false;
+					}
+					else
+					{
+						isPaused = true;
+						clearInterval(game_loop);
+					}
+				}
 				else
-				if(key == "38" && move != "down") move = "up";
+	    		if(key == 37 && move != "right") move = "left";
 				else
-				if(key == "39" && move != "left") move = "right";
+				if(key == 38 && move != "down") move = "up";
 				else
-				if(key == "40" && move != "up") move = "down";
+				if(key == 39 && move != "left") move = "right";
+				else
+				if(key == 40 && move != "up") move = "down";
 			
 				//this and conditions are set such that the snake does not reverse its direction.
 				//the value of move is set which will be used in gamePlay function.
@@ -181,6 +198,7 @@
 				sound2.loop = false;
 				sound3.loop = false;
 				gameSpeed = 80;
+				isPaused = false;
 				score=0;
 			    move = "right";
 				create();

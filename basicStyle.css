@@ -15,3 +15,8 @@ canvas
 	-webkit-border-radius: 10px;
 	border-radius: 10px
 }
+
+h2,h3
+{
+	color: #6BD681;
+}
