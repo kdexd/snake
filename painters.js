@@ -71,10 +71,20 @@
 		    for(var i = 0; i < array.length; i++)
 		    {
 		    	var temp = array[i];
-		    	if(i%2 == 0)
-		        paintCell(temp.x, temp.y, "#31D0F4");
+		    	if(temp.x%2 == 0)
+		    	{
+		    		if(temp.y%2 == 0)
+		        	paintCell(temp.x, temp.y, "#31D0F4");
+		        	else
+		        	paintCell(temp.x, temp.y, "#042B72");
+		        }
 		        else
-		        paintCell(temp.x, temp.y, "#042B72");
+		        {
+			        if(temp.y%2 != 0)
+			        paintCell(temp.x, temp.y, "#31D0F4");
+			        else
+			        paintCell(temp.x, temp.y, "#042B72");
+				}
 		    }
 		}
 		
